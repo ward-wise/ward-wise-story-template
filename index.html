@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Block Club Check-Up</title>
+  <meta name="description" content="How a Chicago ward compares on the things a block club can push on. Built on the Ward Wise API.">
+  <style>
+    :root {
+      color-scheme: light;
+      --surface: #fcfcfb;
+      --panel: #ffffff;
+      --border: #e4e2dc;
+      --text: #1d1c1a;
+      --text-muted: #5e5c57;
+      --track: #e4e2dc;
+      --tick: #9a978f;
+      --mark: #2a78d6;
+      --notice-bg: #fff6e0;
+      --notice-border: #e6c26a;
+      --error-bg: #fdecec;
+      --error-border: #e3a1a1;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --surface: #1a1a19;
+        --panel: #222220;
+        --border: #3a3935;
+        --text: #f0efec;
+        --text-muted: #b3b1a8;
+        --track: #3a3935;
+        --tick: #7d7b74;
+        --mark: #3987e5;
+        --notice-bg: #3a3120;
+        --notice-border: #806a2e;
+        --error-bg: #3a2222;
+        --error-border: #804040;
+      }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --surface: #1a1a19;
+      --panel: #222220;
+      --border: #3a3935;
+      --text: #f0efec;
+      --text-muted: #b3b1a8;
+      --track: #3a3935;
+      --tick: #7d7b74;
+      --mark: #3987e5;
+      --notice-bg: #3a3120;
+      --notice-border: #806a2e;
+      --error-bg: #3a2222;
+      --error-border: #804040;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--surface);
+      color: var(--text);
+      font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+    h1 { font-size: 1.75rem; line-height: 1.2; margin: 0 0 8px; }
+    .eyebrow { margin: 0 0 4px; color: var(--text-muted); font-size: .85rem; letter-spacing: .04em; text-transform: uppercase; }
+    .lede { margin: 0 0 24px; color: var(--text-muted); font-weight: 300; }
+    form {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: end;
+      padding: 16px; margin-bottom: 16px;
+      background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    }
+    label { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; color: var(--text-muted); }
+    input, select, button {
+      font: inherit; color: var(--text); background: var(--surface);
+      border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px;
+    }
+    input[type="password"] { width: 16rem; max-width: 100%; }
+    button { cursor: pointer; background: var(--mark); border-color: var(--mark); color: #fff; }
+    .hint { flex-basis: 100%; margin: 0; font-size: .8rem; color: var(--text-muted); }
+    .notice, .error { padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; font-size: .9rem; }
+    .notice { background: var(--notice-bg); border: 1px solid var(--notice-border); }
+    .error { background: var(--error-bg); border: 1px solid var(--error-border); }
+    [hidden] { display: none !important; }
+    .chart { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+    .chart h2 { font-size: 1.1rem; margin: 0 0 4px; }
+    .chart .axis-note { margin: 0 0 12px; font-size: .85rem; color: var(--text-muted); }
+    .row { padding: 10px 0; border-top: 1px solid var(--border); }
+    .row:first-of-type { border-top: 0; }
+    .row-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: .9rem; }
+    .row-head strong { font-weight: 600; }
+    .row-head span { color: var(--text-muted); }
+    .row svg { display: block; width: 100%; height: 28px; overflow: visible; }
+    .track { stroke: var(--track); stroke-width: 6; stroke-linecap: round; }
+    .mid { stroke: var(--tick); stroke-width: 2; }
+    .dot { fill: var(--mark); stroke: var(--panel); stroke-width: 2; }
+    .end-label { fill: var(--text-muted); font-size: 11px; }
+    footer { margin-top: 24px; font-size: .8rem; color: var(--text-muted); }
+    footer a { color: inherit; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Ward Wise story · for block club organizers</p>
+    <h1>Block Club Check-Up</h1>
+    <p class="lede">
+      How your ward ranks on the city services and neighbor ties a block club can push on, out of
+      the 50 wards. Further right is better on every row, whichever way the number runs.
+    </p>
+
+    <form id="controls" autocomplete="off">
+      <label>Ward
+        <select id="ward"></select>
+      </label>
+      <label>Ward Wise API key
+        <input id="key" type="password" placeholder="wwp_…" spellcheck="false">
+      </label>
+      <button type="submit">Show my ward</button>
+      <p class="hint">
+        No key? The page shows made-up sample numbers. Keys are free:
+        <a href="https://www.wardwise.org/api-docs">ask for one</a>. Your key stays in this tab's
+        memory and goes only to the Ward Wise API, as a header.
+      </p>
+    </form>
+
+    <div id="notice" class="notice" hidden></div>
+    <div id="error" class="error" role="alert" hidden></div>
+
+    <section class="chart" aria-labelledby="chart-title">
+      <h2 id="chart-title">Ward rank, 50 wards</h2>
+      <p class="axis-note">Each dot is your ward's rank. The grey tick marks the middle ward.</p>
+      <div id="rows"></div>
+    </section>
+
+    <footer>
+      Data: <a href="https://www.wardwise.org">Ward Wise</a> API, <code>GET /api/v1/wards/{ward}</code>.
+      Most metrics are allocated to wards from finer geography, so treat small rank differences as noise.
+    </footer>
+  </main>
+  <script src="story.js"></script>
+</body>
+</html>

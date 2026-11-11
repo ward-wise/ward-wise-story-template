@@ -1,0 +1,17 @@
+{
+  "_sample": "MADE-UP NUMBERS. Shaped like GET /api/v1/wards/12 so the page renders without a key. Not real Ward Wise data.",
+  "ward": {"ward_id": "12", "ward_number": 12, "neighborhoods": ["Sample neighborhood A", "Sample neighborhood B"]},
+  "year": "latest",
+  "available_years": ["2024", "2025", "2026"],
+  "metric_count": 8,
+  "metrics": [
+    {"metric_id": "c311_response_days", "label": "311 Response Time (per report)", "unit": "days", "direction": "lower", "category": "good_governance", "value": 10.2, "ward_average": 9.3, "rank": 34, "wards_measured": 50, "normalized_score": 41.7},
+    {"metric_id": "c311_rodent_days", "label": "Rodent Baiting Time (per report)", "unit": "days", "direction": "lower", "category": "good_governance", "value": 6.1, "ward_average": 7.4, "rank": 18, "wards_measured": 50, "normalized_score": 63.0},
+    {"metric_id": "c311_pothole_days", "label": "Pothole Repair Time (per report)", "unit": "days", "direction": "lower", "category": "good_governance", "value": 4.8, "ward_average": 5.0, "rank": 24, "wards_measured": 50, "normalized_score": 52.5},
+    {"metric_id": "c311_street_light_days", "label": "Street Light Repair Time (per report)", "unit": "days", "direction": "lower", "category": "good_governance", "value": 12.9, "ward_average": 9.8, "rank": 44, "wards_measured": 50, "normalized_score": 21.0},
+    {"metric_id": "c311_graffiti_days", "label": "Graffiti Removal Time (per report)", "unit": "days", "direction": "lower", "category": "good_governance", "value": 1.2, "ward_average": 2.0, "rank": 7, "wards_measured": 50, "normalized_score": 88.4},
+    {"metric_id": "street_flooding_complaints_per_10000_residents", "label": "Street Flooding", "unit": "rate_per_10000", "direction": "lower", "category": "physical_environment", "value": 31.5, "ward_average": 22.7, "rank": 39, "wards_measured": 50, "normalized_score": 30.2},
+    {"metric_id": "neighbor_collective_action_pct", "label": "Collective Action", "unit": "percent", "direction": "higher", "category": "social_connectedness", "value": 14.0, "ward_average": 12.6, "rank": 15, "wards_measured": 50, "normalized_score": 70.1},
+    {"metric_id": "community_belonging_pct", "label": "Community Belonging", "unit": "percent", "direction": "higher", "category": "social_connectedness", "value": 31.0, "ward_average": 33.8, "rank": 31, "wards_measured": 50, "normalized_score": 44.9}
+  ]
+}

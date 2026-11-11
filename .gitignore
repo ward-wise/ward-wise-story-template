@@ -1,0 +1,5 @@
+.DS_Store
+__pycache__/
+# API keys are typed into the page at runtime. They never live in a file here.
+.env
+*.key
